@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_191" class="java.beans.XMLDecoder">
+    <object class="ba.unsa.etf.rpr.tutorijal7" id="Drzave">
+        <void property="drzave">
+            <void method="add">
+                <drzave>
+                    <drzava naziv="BiH" brojStanovnika="3500000" povrsina="100000" jedinicaZaPovrsinu="km2">
+                        <glavniGrad naziv="Sarajevo" brojStanovnika="100000" >
+
+                        </glavniGrad>
+
+                    </drzava>
+                </drzave>
+            </void>
+        </void>
+    </object>
+</java>
