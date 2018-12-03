@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class UN implements Serializable {
 
-    ArrayList<Drzava> drzave= new ArrayList<Drzava>();
+    ArrayList<Drzava> drzave= new ArrayList<>();
 
     public ArrayList<Drzava> getDrzave() {
         return drzave;
@@ -15,5 +15,7 @@ public class UN implements Serializable {
         this.drzave = drzave;
     }
 
-
+    public void dodajDrzavu(Drzava drzava){
+        drzave.add(drzava);
+    }
 }
