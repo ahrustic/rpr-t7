@@ -6,9 +6,12 @@
                 <drzave>
                     <drzava naziv="BiH" brojStanovnika="3500000" povrsina="100000" jedinicaZaPovrsinu="km2">
                         <glavniGrad naziv="Sarajevo" brojStanovnika="100000" >
-
                         </glavniGrad>
+                    </drzava>
 
+                    <drzava naziv="Njemacka" brojStanovnika="80000000" povrsina="10000000" jedinicaZaPovrsinu="km2">
+                        <glavniGrad naziv="Berlin" brojStanovnika="1000000" >
+                        </glavniGrad>
                     </drzava>
                 </drzave>
             </void>
