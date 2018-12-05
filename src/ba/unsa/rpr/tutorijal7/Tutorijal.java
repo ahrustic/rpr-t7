@@ -2,6 +2,8 @@ package ba.unsa.rpr.tutorijal7;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -47,6 +49,48 @@ public class Tutorijal {
         return gradovi;
     }
 
+    public static void ucitajElementeIDodajTemperature(Element element, UN un, ArrayList<Grad> gradovi) {
+        NodeList djecaDatoteke = element.getChildNodes();
+
+        ArrayList<Drzava> drzave=new ArrayList<>();
+
+        for (int i=0; i<djecaDatoteke.getLength(); i++) {
+            Node drzava = djecaDatoteke.item(i);
+            if (drzava instanceof Element) {
+                int brojStanovnikaDrzave = Integer.parseInt(((Element) drzava).getAttribute("stanovnika"));
+                String nazivDrzave = ((Element) drzava).getElementsByTagName("naziv").item(0).getTextContent();
+                Double povrsinaDrzave = Double.parseDouble(((Element) drzava).getElementsByTagName("povrsina").item(0).getTextContent());
+                String jedinicaZaPovrsinu = ((Element)((Element) drzava).getElementsByTagName("povrsina").item(0)).getAttribute("jedinica");
+
+                NodeList glavniGrad = ((Element) drzava).getElementsByTagName("glavnigrad");
+                String nazivGlavnogGradaDrzave = ((Element)glavniGrad.item(0)).getElementsByTagName("naziv").item(0).getTextContent();
+                int brojStanovnikaGlavnogGradaDrzave = Integer.parseInt(((Element)glavniGrad.item(0)).getAttribute("stanovnika"));
+
+                Drzava novaDrzava=new Drzava();
+                novaDrzava.setBrojStanovnika(brojStanovnikaDrzave);
+                novaDrzava.setJedinicaZaPovrsinu(jedinicaZaPovrsinu);
+                novaDrzava.setNaziv(nazivDrzave);
+                novaDrzava.setPovrsina(povrsinaDrzave);
+
+                Grad noviGrad=new Grad();
+                noviGrad.setNaziv(nazivGlavnogGradaDrzave);
+                noviGrad.setBrojStanovnika(brojStanovnikaGlavnogGradaDrzave);
+
+                for(Grad g: gradovi){
+                    if(g.getNaziv().equals(nazivGlavnogGradaDrzave)){
+                        noviGrad.setTemperature(g.getTemperature());
+                        novaDrzava.setGlavniGrad(noviGrad);
+                        drzave.add(novaDrzava);
+                        break;
+                    }
+                }
+            }
+        }
+        un.setDrzave(drzave);
+    }
+
+
+
     static UN ucitajXml(ArrayList<Grad> gradovi) {
         UN un = new UN();
         try {
@@ -67,12 +111,10 @@ public class Tutorijal {
         }
 
         Element korijenDatoteke = dokument.getDocumentElement();
-
-
+        ucitajElementeIDodajTemperature(korijenDatoteke, un, gradovi);
 
         return un;
     }
-
 
 
     public static void main(String[] args) {
