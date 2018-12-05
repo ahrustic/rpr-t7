@@ -1,7 +1,12 @@
 package ba.unsa.rpr.tutorijal7;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.beans.XMLDecoder;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,7 +25,7 @@ public class Tutorijal {
 
         if (ulaz == null) return null;
 
-        ulaz.useDelimiter("\n");
+        ulaz.useDelimiter("\n");//zanemaruje ove znakove
         try {
             while (ulaz.hasNext()) {
                 String podaciGradova = ulaz.next();
@@ -37,15 +42,40 @@ public class Tutorijal {
                 gradovi.add(new Grad(grad, nizTemperatura.toArray(new Double[0])));
             }
         } catch (Exception greska) {
-
+            System.out.println("Greška: "+ greska);
         }
         return gradovi;
+    }
+
+    static UN ucitajXml(ArrayList<Grad> gradovi) {
+        UN un = new UN();
+        try {
+            XMLDecoder ulaz = new XMLDecoder(new FileInputStream("drzave.xml"));
+            un = (UN) ulaz.readObject();
+            ulaz.close();
+        } catch(Exception greska) {
+            System.out.println("Greška: "+ greska);
+        }
+
+        Document dokument = null;
+        try {
+            DocumentBuilder docReader = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            dokument = docReader.parse(new File("drzave.xml"));
+        }
+        catch (Exception greska) {
+            System.out.println("Greška: "+ greska);
+        }
+
+        Element korijenDatoteke = dokument.getDocumentElement();
+
+
+
+        return un;
     }
 
 
 
     public static void main(String[] args) {
-
 
     }
 }
