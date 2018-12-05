@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,10 +113,18 @@ public class Tutorijal {
 
         Element korijenDatoteke = dokument.getDocumentElement();
         ucitajElementeIDodajTemperature(korijenDatoteke, un, gradovi);
-
         return un;
     }
 
+     public static void zapisiXml(UN un) {
+        try{
+            XMLEncoder izlaz = new XMLEncoder(new FileOutputStream("un.xml"));
+            izlaz.writeObject(un);
+            izlaz.close();
+        } catch (FileNotFoundException greska){
+            System.out.println("Greska:" + greska);
+        }
+    }
 
     public static void main(String[] args) {
 
