@@ -7,7 +7,6 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
 import java.util.ArrayList;
@@ -17,14 +16,16 @@ import java.util.Scanner;
 
 public class Tutorijal {
 
+    private static org.w3c.dom.Document Document;
+
     public static ArrayList<Grad> ucitajGradove() throws FileNotFoundException {
         ArrayList<Grad> gradovi = new ArrayList<>();
         Scanner ulaz = null;
-        try {
+        /*try {
             ulaz = new Scanner(new FileReader("mjerenja.txt"));
         } catch (FileNotFoundException greska) {
             throw greska;
-        }
+        }*/
 
         if (ulaz == null) return null;
 
@@ -94,18 +95,11 @@ public class Tutorijal {
 
     static UN ucitajXml(ArrayList<Grad> gradovi) {
         UN un = new UN();
-        try {
-            XMLDecoder ulaz = new XMLDecoder(new FileInputStream("drzave.xml"));
-            un = (UN) ulaz.readObject();
-            ulaz.close();
-        } catch(Exception greska) {
-            System.out.println("Greška: "+ greska);
-        }
-
-        Document dokument = null;
+        Document dokument = Document;
         try {
             DocumentBuilder docReader = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             dokument = docReader.parse(new File("drzave.xml"));
+
         }
         catch (Exception greska) {
             System.out.println("Greška: "+ greska);
@@ -127,6 +121,13 @@ public class Tutorijal {
     }
 
     public static void main(String[] args) {
-
+        ArrayList<Grad> gradovi = new ArrayList<>();
+        try {
+            gradovi = ucitajGradove();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        UN un = ucitajXml(gradovi);
+        zapisiXml(un);
     }
 }
