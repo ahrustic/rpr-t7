@@ -121,13 +121,13 @@ public class Tutorijal {
     }
 
     public static void main(String[] args) {
-        ArrayList<Grad> gradovi = new ArrayList<>();
+       /* ArrayList<Grad> gradovi = new ArrayList<>();
         try {
             gradovi = ucitajGradove();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         UN un = ucitajXml(gradovi);
-        zapisiXml(un);
+        zapisiXml(un);*/
     }
 }
