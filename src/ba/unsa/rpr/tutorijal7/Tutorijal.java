@@ -105,8 +105,16 @@ public class Tutorijal {
             System.out.println("Greška: "+ greska);
         }
 
-        Element korijenDatoteke = dokument.getDocumentElement();
-        ucitajElementeIDodajTemperature(korijenDatoteke, un, gradovi);
+        try{
+            if (dokument.getDocumentElement() == null)
+                System.out.println("Prazna datoteka");
+                Element korijenDatoteke = dokument.getDocumentElement();
+                ucitajElementeIDodajTemperature(korijenDatoteke, un, gradovi);
+
+        }
+        catch (NullPointerException e){}
+
+
         return un;
     }
 
@@ -121,13 +129,16 @@ public class Tutorijal {
     }
 
     public static void main(String[] args) {
-       /* ArrayList<Grad> gradovi = new ArrayList<>();
+       ArrayList<Grad> gradovi = new ArrayList<>();
         try {
             gradovi = ucitajGradove();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
-        UN un = ucitajXml(gradovi);
-        zapisiXml(un);*/
+        if (ucitajXml(gradovi) == null) return;
+        else {
+            UN un = ucitajXml(gradovi);
+            zapisiXml(un);
+        }
     }
 }
