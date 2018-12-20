@@ -129,7 +129,7 @@ public class Tutorijal {
     }
 
     public static void main(String[] args) {
-       ArrayList<Grad> gradovi = new ArrayList<>();
+      /* ArrayList<Grad> gradovi = new ArrayList<>();
         try {
             gradovi = ucitajGradove();
         } catch (FileNotFoundException e) {
@@ -139,6 +139,6 @@ public class Tutorijal {
         else {
             UN un = ucitajXml(gradovi);
             zapisiXml(un);
-        }
+        }*/
     }
 }
